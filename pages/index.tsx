@@ -12,7 +12,9 @@ export default function IndexPage() {
 	const isCreator = user?.role?.name == 'creator'
 	const { push } = useRouter()
 	const redirectCreatePost = () => {
-		push('/post/create')
+		if(isAuthenticated){
+			push('/post/create')
+		}
 	}
 	return (
 		<DefaultLayout>

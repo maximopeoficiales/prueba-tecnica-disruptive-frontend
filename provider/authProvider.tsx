@@ -234,9 +234,7 @@ export const AuthProvider = ({ children }: MyProps) => {
             token: response.token,
             logged: true
           }))
-        } else {
-          logout
-        }
+        } 
       } catch (error) {
         logout()
       }

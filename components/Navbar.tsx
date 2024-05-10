@@ -32,8 +32,7 @@ export const Navbar = () => {
 		siteConfig.navItems : siteConfig.navItems.filter(e => e.href !== '/login' && e.href !== '/register')
 	const navMenuItems = !isAuthenticated ?
 		siteConfig.navMenuItems : siteConfig.navMenuItems.filter(e => e.href !== '/login' && e.href !== '/register')
-
-
+	
 	return (
 		<NextUINavbar maxWidth="xl" position="sticky">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">

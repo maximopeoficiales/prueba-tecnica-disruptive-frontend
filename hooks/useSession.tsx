@@ -11,8 +11,12 @@ export const useSession = () => {
     throw new Error('useSession must be used within an AuthProvider');
   }
 
-  const { login, logout, register, setPosts, isAuthenticated, findPostById, setThemes, setCountPost, registerPost, setSearchFilter, setThemeSelected } = context
+  const { login, logout : logoutHandler, register, setPosts, isAuthenticated, findPostById, setThemes, setCountPost, registerPost, setSearchFilter, setThemeSelected } = context
 
+  const logout = () =>{
+    logoutHandler()
+    router.push("/")
+  }
   const singIn = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     const { username, email } = evt.target as any
