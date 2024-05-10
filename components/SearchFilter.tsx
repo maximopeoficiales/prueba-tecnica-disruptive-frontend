@@ -1,9 +1,9 @@
-import { useSession } from '@/hooks/useSession'
+import { useAuth } from '@/hooks/useAuth'
 import { Input, Select, SelectItem } from '@nextui-org/react'
 import { SearchIcon } from './icons'
 
 const SearchFilter = () => {
-  const { setSearchFilter, setThemeSelected, context } = useSession()
+  const { setSearchFilter, setThemeSelected, context } = useAuth()
   const { themes } = context.state
   const search = ({ target }: any) => setSearchFilter(target.value)
   const selectedTheme = ({ target }: any) => setThemeSelected(target.value)

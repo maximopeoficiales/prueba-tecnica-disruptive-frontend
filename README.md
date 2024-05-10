@@ -28,3 +28,9 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Tambien puede visualizarlo en vivo aqui
+
+API: **https://prueba-tecnica-disruptive-api.onrender.com/docs**
+
+WEB: **https://prueba-tecnica-disruptive-frontend.vercel.app**

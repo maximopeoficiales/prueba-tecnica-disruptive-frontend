@@ -1,10 +1,16 @@
-import { Post } from "@/domain/types"
+import { useAuth } from "@/hooks/useAuth"
 import { Card, CardBody, CardHeader, Image } from "@nextui-org/react"
+import { useRouter } from "next/router"
 
-interface MyProps {
-  post: Post | undefined
-}
-export const PostCard = ({ post }: MyProps) => {
+
+export const PostId = () => {
+  const router = useRouter()
+  const { id } = router.query as Record<string, any>
+
+  const { findPostById, } = useAuth()
+
+  const post = findPostById(id)
+
   const date = new Date(post?.updatedAt as string).toLocaleString()
   const buildUrlYouTube = (url?: string) => {
     if (!url) return

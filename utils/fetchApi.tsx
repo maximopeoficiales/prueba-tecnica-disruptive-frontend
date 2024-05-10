@@ -13,7 +13,7 @@ export interface HttpResponse<T> {
   status: number
   errors: string[]
 }
-export const useFetch = async <T extends Record<string, any>>({
+export const fetchApi = async <T extends Record<string, any>>({
   path,
   data,
   method = 'GET',

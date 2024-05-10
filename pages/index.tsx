@@ -1,19 +1,22 @@
 import { GridCardPost } from "@/components/GridCardPost";
 import SearchFilter from "@/components/SearchFilter";
-import { useSession } from "@/hooks/useSession";
+import { roleCreator } from "@/config/roles";
+import { routes } from "@/config/routes";
+import { useAuth } from "@/hooks/useAuth";
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@nextui-org/react";
 import { useRouter } from 'next/router';
 
 export default function IndexPage() {
-	const { context } = useSession()
-	const { countPost } = context.state
-	const { isAuthenticated, context: { state: { user } } } = useSession()
-	const isCreator = user?.role?.name == 'creator'
+	const { context } = useAuth()
 	const { push } = useRouter()
+
+	const { countPost } = context.state
+	const { isAuthenticated, context: { state: { user } } } = useAuth()
+	const isCreator = user?.role?.name == roleCreator
 	const redirectCreatePost = () => {
-		if(isAuthenticated){
-			push('/post/create')
+		if (isAuthenticated) {
+			push(routes.POST_CREATE)
 		}
 	}
 	return (
@@ -29,9 +32,15 @@ export default function IndexPage() {
 					}
 					<div className="flex flex-col text-xs">
 						{isAuthenticated && <span>Credits <b>{user.credits}</b></span>}
-						<span>Current Images <b>{countPost?.recordsImagesPost}</b></span>
-						<span>Current Videos <b>{countPost?.recordsVideoPost}</b></span>
-						<span>Current Texts <b>{countPost?.recordsTextPost}</b></span>
+						{countPost ?
+							<>
+								<span>Current Images <b>{countPost?.recordsImagesPost}</b></span>
+								<span>Current Videos <b>{countPost?.recordsVideoPost}</b></span>
+								<span>Current Texts <b>{countPost?.recordsTextPost}</b></span>
+							</>
+							:
+							<span>Not Information</span>
+						}
 					</div>
 				</div>
 

@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+import { routesApi } from '@/config/routes';
 import { LoginDto, PostCreateDto, RegisterDto } from '@/domain/dto';
 import { UserResponse } from '@/domain/response';
 import { CountPost, Post, Theme, User } from '@/domain/types';
-import { useFetch } from '@/hooks/useFetch';
+import { fetchApi } from '@/utils/fetchApi';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 export interface StateGlobal {
@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }: MyProps) => {
 
   const login = async (data: LoginDto) => {
     try {
-      const response = await useFetch<UserResponse>({
-        path: '/auth/login',
+      const response = await fetchApi<UserResponse>({
+        path: routesApi.LOGIN,
         method: 'POST',
         data,
       })
@@ -82,8 +82,8 @@ export const AuthProvider = ({ children }: MyProps) => {
 
   const register = async (data: RegisterDto) => {
     try {
-      const response = await useFetch<UserResponse>({
-        path: '/auth/register',
+      const response = await fetchApi<UserResponse>({
+        path: routesApi.REGISTER,
         method: 'POST',
         data,
       })
@@ -108,8 +108,8 @@ export const AuthProvider = ({ children }: MyProps) => {
   };
   const registerPost = async (data: PostCreateDto) => {
     try {
-      const post = await useFetch<Post>({
-        path: '/posts',
+      const post = await fetchApi<Post>({
+        path: routesApi.POST,
         method: 'POST',
         data,
       })
@@ -222,8 +222,8 @@ export const AuthProvider = ({ children }: MyProps) => {
       try {
         const token = window.localStorage.getItem('token')
         if (token) {
-          const response = await useFetch<UserResponse>({
-            path: '/auth/refresh',
+          const response = await fetchApi<UserResponse>({
+            path: routesApi.REFRESH_TOKEN,
             method: 'POST',
             data: { token },
             alerts: false

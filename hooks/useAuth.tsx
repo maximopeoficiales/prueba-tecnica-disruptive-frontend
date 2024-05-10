@@ -1,28 +1,29 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { routes } from '@/config/routes'
 import { useStateContext } from '@/provider/authProvider'
 import { useRouter } from 'next/router'
 import { FormEvent, MouseEvent } from 'react'
 
-export const useSession = () => {
+export const useAuth = () => {
   const router = useRouter()
 
   const context = useStateContext()
   if (!context) {
-    throw new Error('useSession must be used within an AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
 
-  const { login, logout : logoutHandler, register, setPosts, isAuthenticated, findPostById, setThemes, setCountPost, registerPost, setSearchFilter, setThemeSelected } = context
+  const { login, logout: logoutHandler, register, setPosts, isAuthenticated, findPostById, setThemes, setCountPost, registerPost, setSearchFilter, setThemeSelected } = context
 
-  const logout = () =>{
+  const logout = () => {
     logoutHandler()
-    router.push("/")
+    router.push(routes.HOME)
   }
   const singIn = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     const { username, email } = evt.target as any
     const data = { username: username.value, email: email.value }
     await login(data)
-    void router.push('/')
+    void router.push(routes.HOME)
   }
 
   const registerUser = async (event: FormEvent<HTMLFormElement>) => {
@@ -35,25 +36,25 @@ export const useSession = () => {
         role: roleName.value,
       }
     )
-    void router.push('/')
+    void router.push(routes.HOME)
   }
 
   const redirectLogin = (evt: MouseEvent) => {
     evt.preventDefault()
     logout()
-    void router.push('/login')
+    void router.push(routes.LOGIN)
   }
 
   const redirectRegister = (evt: MouseEvent) => {
     evt.preventDefault()
     logout()
-    void router.push('/register')
+    void router.push(routes.REGISTER)
   }
 
   const registerNewPost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const { name, video, text, image, theme } = event.target as Record<string, any>
-    const post = await registerPost(
+    await registerPost(
       {
         name: name.value,
         theme: theme.value,
@@ -62,9 +63,7 @@ export const useSession = () => {
         image: image?.value,
       }
     )
-    // mostrar mensaje de se creo correctamente
-
-    void router.push('/')
+    void router.push(routes.HOME)
   }
 
 

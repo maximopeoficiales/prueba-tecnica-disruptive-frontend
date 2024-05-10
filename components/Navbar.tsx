@@ -23,10 +23,10 @@ import {
 
 
 import { Logo } from "@/components/icons";
-import { useSession } from "@/hooks/useSession";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Navbar = () => {
-	const { logout, context, } = useSession()
+	const { logout, context, } = useAuth()
 	const { state: { user }, isAuthenticated } = context
 	const navItems = !isAuthenticated ?
 		siteConfig.navItems : siteConfig.navItems.filter(e => e.href !== '/login' && e.href !== '/register')
@@ -69,7 +69,7 @@ export const Navbar = () => {
 			</NavbarContent>
 
 			<NavbarContent className="hidden sm:flex basis-1 " justify="end">
-				<p>Hola<b className="mx-1">{isAuthenticated ? user?.username : 'Invitado'}</b></p>
+				<p>Hello<b className="mx-1">{isAuthenticated ? user?.username : 'Invitado'}</b></p>
 				<NavbarItem className="hidden sm:flex gap-2">
 					<Link isExternal href={siteConfig.links.github}>
 						<GithubIcon className="text-default-500" />

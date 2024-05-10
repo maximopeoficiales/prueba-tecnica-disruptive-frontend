@@ -1,5 +1,5 @@
+import { useAuth } from "@/hooks/useAuth";
 import { usePosts } from "@/hooks/usePosts";
-import { useSession } from "@/hooks/useSession";
 import NextLink from 'next/link';
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
@@ -7,7 +7,7 @@ import { CardPostSimple } from "./CardPost";
 
 export const GridCardPost = () => {
   const { loading, posts } = usePosts()
-  const { context } = useSession()
+  const { context } = useAuth()
   const { isAuthenticated, } = context
   const { themeSelected, searchFilter, user: { role } } = context.state
 
